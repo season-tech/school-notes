@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class Notes By Season</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════════════
+       CHANGE YOUR TEACHER PASSWORD:
+       Search this file for  TEACHER_PASSWORD  below
+       and change the value to whatever you like.
+    ═══════════════════════════════════════════════════ */
+
+    :root {
+      --navy: #1a2744; --navy2: #253561;
+      --cream: #f7f3eb; --cream2: #ede8dd;
+      --gold: #b8943f; --gold2: #d4b06a;
+      --text: #1a1a1a; --muted: #5a5a6a;
+      --border: rgba(26,39,68,.15); --border2: rgba(26,39,68,.28);
+      --white: #fff; --danger: #c0392b; --ok: #1a6641;
+      --r: 8px; --rl: 14px;
+      --sh: 0 2px 14px rgba(26,39,68,.09);
+      --shl: 0 6px 32px rgba(26,39,68,.14);
+      --fd: 'Cormorant Garamond',Georgia,serif;
+      --fb: 'Outfit',system-ui,sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--fb);background:var(--cream);color:var(--text);min-height:100vh;font-size:15px;line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+    /* NAV */
+    nav{background:var(--navy);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+    .n-logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+    .crest{width:34px;height:34px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:15px;color:var(--gold);font-weight:600;flex-shrink:0}
+    .n-logo span{font-family:var(--fd);font-size:19px;color:var(--white);font-weight:500}
+    .n-links{display:flex;align-items:center;gap:4px}
+    .nb{font-family:var(--fb);font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.7);padding:6px 12px;border-radius:var(--r);border:none;background:transparent;cursor:pointer;transition:all .15s}
+    .nb:hover{color:#fff;background:rgba(255,255,255,.1)}
+    .nb.act{color:var(--gold)}
+    .nb.cta{background:var(--gold);color:var(--navy);font-weight:600}
+    .nb.cta:hover{background:var(--gold2)}
+
+    /* VIEWS */
+    .view{display:none}.view.on{display:block}
+
+    /* HERO */
+    .hero{background:var(--navy);padding:2.5rem 1.5rem 2rem;text-align:center;border-bottom:3px solid var(--gold)}
+    .hero h1{font-family:var(--fd);font-size:clamp(1.8rem,5vw,3rem);color:#fff;font-weight:600;margin-bottom:.4rem}
+    .hero p{color:rgba(255,255,255,.6);font-size:14px}
+    .sbar{background:var(--navy);padding:.5rem;display:flex;gap:1.5rem;justify-content:center;font-size:12px;color:rgba(255,255,255,.55)}
+    .sbar strong{color:var(--gold)}
+
+    /* SEARCH */
+    .search-row{background:var(--white);padding:.9rem 1.25rem;border-bottom:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .si-wrap{flex:1;min-width:160px;position:relative}
+    .si-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted)}
+    .si{width:100%;padding:8px 12px 8px 34px;border:1.5px solid var(--border);border-radius:var(--r);font-family:var(--fb);font-size:13px;background:var(--cream);color:var(--text);transition:border .15s}
+    .si:focus{outline:none;border-color:var(--navy);background:var(--white)}
+    .tags{display:flex;gap:6px;flex-wrap:wrap}
+    .tp{padding:5px 13px;border-radius:999px;font-size:11px;font-weight:500;border:1.5px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .14s;font-family:var(--fb)}
+    .tp:hover{border-color:var(--navy);color:var(--navy)}
+    .tp.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+    /* GRID */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;padding:1.75rem;max-width:1100px;margin:0 auto}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;box-shadow:var(--sh);transition:all .2s;display:flex;flex-direction:column}
+    .card:hover{transform:translateY(-3px);box-shadow:var(--shl);border-color:var(--border2)}
+    .thumb{height:140px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden;background:var(--cream)}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+    .thumb.pdft{background:linear-gradient(135deg,#fff8ec,#ffecd2)}
+    .fi{width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:26px}
+    .fi.pdf{background:rgba(184,148,63,.14)}
+    .fi.img{background:rgba(26,39,68,.08)}
+    .tbadge{position:absolute;top:8px;right:8px;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.04em}
+    .tbadge.pdf{background:var(--gold);color:#fff}
+    .tbadge.img{background:var(--navy);color:#fff}
+    .cbody{padding:.9rem 1rem;flex:1;display:flex;flex-direction:column;gap:5px}
+    .ctitle{font-family:var(--fd);font-size:16px;font-weight:600;color:var(--text);line-height:1.3}
+    .cmeta{font-size:11px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
+    .ctags{display:flex;gap:5px;flex-wrap:wrap;margin-top:3px}
+    .ctag{padding:2px 8px;border-radius:999px;font-size:10px;background:var(--cream2);color:var(--muted);border:1px solid var(--border)}
+    .cfoot{padding:.65rem 1rem;border-top:1px solid var(--border);display:flex;gap:7px;background:var(--cream)}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid transparent;transition:all .16s;text-decoration:none}
+    .btn-p{background:var(--navy);color:#fff;border-color:var(--navy)}.btn-p:hover{background:var(--navy2)}
+    .btn-g{background:var(--gold);color:#fff;border-color:var(--gold)}.btn-g:hover{background:var(--gold2)}
+    .btn-o{background:transparent;color:var(--navy);border-color:var(--border2)}.btn-o:hover{background:var(--cream2)}
+    .btn-d{background:var(--danger);color:#fff;border-color:var(--danger)}.btn-d:hover{opacity:.85}
+    .btn-sm{padding:5px 12px;font-size:12px}
+    .btn-lg{padding:11px 26px;font-size:14px}
+
+    /* EMPTY */
+    .empty{text-align:center;padding:5rem 2rem;color:var(--muted)}
+    .empty .ei{font-size:3rem;margin-bottom:1rem}
+    .empty h3{font-family:var(--fd);font-size:1.5rem;color:var(--navy);margin-bottom:.4rem}
+
+    /* UPLOAD FORM */
+    .upage{max-width:680px;margin:2rem auto;padding:0 1.25rem}
+    .fcard{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:1.75rem 2rem;box-shadow:var(--sh);margin-bottom:1.5rem}
+    .fcard h2{font-family:var(--fd);font-size:1.5rem;font-weight:600;color:var(--navy);margin-bottom:1.25rem;padding-bottom:.9rem;border-bottom:1px solid var(--border)}
+    .fg{margin-bottom:1.1rem}
+    .fg label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:5px}
+    .fg input[type=text],.fg select,.fg textarea{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:var(--text);background:var(--cream);transition:border .15s}
+    .fg input:focus,.fg select:focus{outline:none;border-color:var(--navy);background:var(--white)}
+
+    /* DROP ZONE */
+    .dz{border:2px dashed var(--border2);border-radius:var(--rl);padding:2rem;text-align:center;background:var(--cream);cursor:pointer;transition:all .16s}
+    .dz:hover,.dz.over{border-color:var(--gold);background:#fffbf2}
+    .dz .di{font-size:2.2rem;margin-bottom:8px}
+    .dz p{font-size:13px;color:var(--muted)}
+    .dz strong{color:var(--navy)}
+    .dz input{display:none}
+    .plist{margin-top:.75rem;display:flex;flex-direction:column;gap:7px}
+    .pi{display:flex;align-items:center;gap:9px;padding:7px 11px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);font-size:12px}
+    .pi .rm{margin-left:auto;background:none;border:none;cursor:pointer;color:var(--muted);font-size:17px;padding:1px 5px;border-radius:4px;line-height:1}
+    .pi .rm:hover{background:#fee;color:var(--danger)}
+
+    /* PROGRESS */
+    .prog{margin-top:.75rem}
+    .pb{height:5px;background:var(--border);border-radius:999px;overflow:hidden;margin-bottom:3px}
+    .pf{height:100%;background:var(--gold);border-radius:999px;transition:width .25s}
+    .pl{font-size:11px;color:var(--muted)}
+
+    /* ALERT */
+    .alert{padding:10px 14px;border-radius:var(--r);font-size:13px;margin-bottom:.9rem;display:flex;align-items:center;gap:9px}
+    .alert-ok{background:#eafbf2;border:1px solid #a3d9b8;color:var(--ok)}
+    .alert-err{background:#fdecea;border:1px solid #f5b7b1;color:var(--danger)}
+
+    /* ADMIN TABLE */
+    .tw{overflow-x:auto}
+    table.at{width:100%;border-collapse:collapse;font-size:13px}
+    .at th{text-align:left;padding:9px 12px;font-size:10px;text-transform:uppercase;letter-spacing:.07em;font-weight:600;color:var(--muted);border-bottom:2px solid var(--border2);background:var(--cream)}
+    .at td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+    .at tr:hover td{background:var(--cream)}
+
+    /* LOGIN */
+    .lpage{min-height:calc(100vh - 60px);display:flex;align-items:center;justify-content:center;padding:1.5rem}
+    .lcard{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:2.25rem;width:100%;max-width:380px;box-shadow:var(--shl)}
+    .lcrest{width:54px;height:54px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:24px;color:var(--gold);font-weight:600;margin:0 auto 1rem}
+    .lcard h2{font-family:var(--fd);font-size:1.7rem;text-align:center;color:var(--navy);margin-bottom:.2rem}
+    .lcard .sub{text-align:center;color:var(--muted);font-size:12px;margin-bottom:1.5rem}
+
+    /* RESPONSIVE */
+    @media(max-width:600px){
+      nav{padding:0 1rem}
+      .n-logo span{font-size:15px}
+      .grid{grid-template-columns:1fr;padding:1rem}
+      .fcard{padding:1.25rem}
+      .nb{padding:5px 8px;font-size:11px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     ★  CHANGE YOUR TEACHER PASSWORD HERE  ★
+     Open this file in Notepad, find the line below,
+     and replace  school2024  with your own password.
+     Save the file. Done!
+══════════════════════════════════════════════════════ -->
+<script>
+  const TEACHER_PASSWORD = 'season1224';
+</script>
+<!-- ══════════════════════════════════════════════════════ -->
+
+<!-- NAV -->
+<nav role="navigation" aria-label="Main navigation">
+  <div class="n-logo" onclick="showView('gallery')" tabindex="0" role="button" aria-label="Go to notes library">
+    <div class="crest" aria-hidden="true">SG</div>
+    <span>Season Gautam</span>
+  </div>
+  <div class="n-links">
+    <button class="nb act" id="nb-gallery" onclick="showView('gallery')">Notes Library</button>
+    <button class="nb" id="nb-upload" onclick="showView('upload')" style="display:none">Upload</button>
+    <button class="nb cta" id="nb-login" onclick="showView('login')">Teacher Login</button>
+    <button class="nb" id="nb-logout" onclick="doLogout()" style="display:none">Log out</button>
+  </div>
+</nav>
+
+<!-- ══════ GALLERY VIEW ══════ -->
+<div class="view on" id="view-gallery">
+  <header class="hero">
+    <h1>Class Notes &amp; Resources</h1>
+    <p>Browse, preview, and download materials shared by your teachers.</p>
+  </header>
+  <div class="sbar" id="stats-bar"><span>Loading…</span></div>
+
+  <section style="background:var(--white);padding:.85rem 1.25rem;border-bottom:1px solid var(--border)">
+    <div style="max-width:1100px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <div class="si-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+             stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input class="si" id="search-inp" type="search" placeholder="Search by title or tag…"
+               aria-label="Search notes" oninput="renderGallery()" />
+      </div>
+      <div class="tags" id="tag-row" role="group" aria-label="Filter by subject"></div>
+    </div>
+  </section>
+
+  <main>
+    <div class="grid" id="gallery-grid" role="list" aria-label="Classroom notes"></div>
+    <div class="empty" id="gallery-empty" style="display:none">
+      <div class="ei" aria-hidden="true">📂</div>
+      <h3>No notes yet</h3>
+      <p id="empty-msg">Your teacher hasn't uploaded any notes yet.</p>
+    </div>
+  </main>
+</div>
+
+<!-- ══════ UPLOAD VIEW (teacher only) ══════ -->
+<div class="view" id="view-upload">
+  <header class="hero">
+    <h1>Upload Classroom Notes</h1>
+    <p>Share PDFs and images with your students.</p>
+  </header>
+
+  <div class="upage">
+
+    <!-- Upload form -->
+    <div class="fcard">
+      <h2>Add New File</h2>
+      <div id="up-alert"></div>
+
+      <div class="fg">
+        <label for="u-title">Title <span style="color:var(--danger)">*</span></label>
+        <input type="text" id="u-title" placeholder="e.g. Chapter 5 — Cell Division" maxlength="120" />
+      </div>
+
+      <div class="fg">
+        <label for="u-subject">Subject</label>
+        <select id="u-subject">
+          <option value="">— Select subject —</option>
+          <!-- <option>Biology</option><option>Chemistry</option><option>Physics</option>
+          <option>Mathematics</option><option>English Literature</option>
+          <option>History</option><option>Geography</option> -->
+          <option>Health, Physical</option><option>Computer Science</option><option>Other</option>
+        </select>
+      </div>
+
+      <div class="fg">
+        <label for="u-tags">Tags <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(comma-separated)</span></label>
+        <input type="text" id="u-tags" placeholder="e.g. homework, revision, exam prep" />
+      </div>
+
+      <div class="fg">
+        <label>File <span style="color:var(--danger)">*</span></label>
+        <div class="dz" id="dz" role="button" tabindex="0"
+             aria-label="Upload file — drag and drop or click to browse"
+             aria-describedby="file-hint">
+          <div class="di" aria-hidden="true">📎</div>
+          <p><strong>Drag &amp; drop</strong> or <strong>click to browse</strong></p>
+          <p id="file-hint" style="font-size:11px;margin-top:3px">PDF or image (JPG, PNG, GIF, WEBP) · Max 50 MB</p>
+          <input type="file" id="file-inp" accept=".pdf,.jpg,.jpeg,.png,.gif,.webp" aria-hidden="true" />
+        </div>
+        <div class="plist" id="preview-list"></div>
+      </div>
+
+      <div id="prog-wrap" style="display:none">
+        <div class="prog"><div class="pb"><div class="pf" id="pf" style="width:0%"></div></div>
+        <span class="pl" id="pl">Saving…</span></div>
+      </div>
+
+      <div style="margin-top:1.25rem;display:flex;gap:9px">
+        <button class="btn btn-g btn-lg" onclick="doUpload()">Save File</button>
+        <button class="btn btn-o" onclick="resetForm()">Clear</button>
+      </div>
+    </div>
+
+    <!-- Manage files -->
+    <div class="fcard">
+      <h2>Manage Uploaded Files</h2>
+      <div id="mgmt-alert"></div>
+      <div class="tw">
+        <table class="at" id="mgmt-table" aria-label="Uploaded files">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Type</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Date</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="mgmt-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════ LOGIN VIEW ══════ -->
+<div class="view" id="view-login">
+  <div class="lpage">
+    <div class="lcard">
+      <div class="lcrest" aria-hidden="true">W</div>
+      <h2>Teacher Portal</h2>
+      <p class="sub">Enter your password to manage notes</p>
+      <div id="login-alert"></div>
+      <div class="fg">
+        <label for="l-pass">Password</label>
+        <input type="password" id="l-pass" placeholder="••••••••"
+               autocomplete="current-password"
+               onkeydown="if(event.key==='Enter')checkLogin()" />
+      </div>
+      <div style="margin-top:1.1rem">
+        <button class="btn btn-p btn-lg" style="width:100%" onclick="checkLogin()">Sign In</button>
+      </div>
+      <p style="text-align:center;margin-top:1rem;font-size:12px;color:var(--muted)">
+        Students don't need to log in —
+        <button onclick="showView('gallery')" style="background:none;border:none;cursor:pointer;color:var(--navy);font-weight:500;font-size:12px;font-family:var(--fb)">browse the library</button>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     JAVASCRIPT — all app logic below
+══════════════════════════════════════════════════════ -->
+<script>
+
+// ─── IndexedDB setup ────────────────────────────────────────────────────────
+const DB_NAME    = 'SchoolNotesDB';
+const DB_VERSION = 1;
+const STORE      = 'files';
+
+function openDB() {
+  return new Promise((ok, fail) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(STORE)) {
+        db.createObjectStore(STORE, { keyPath: 'id' });
+      }
+    };
+    req.onsuccess = e => ok(e.target.result);
+    req.onerror   = e => fail(e.target.error);
+  });
+}
+
+async function dbGetAll() {
+  const db = await openDB();
+  return new Promise((ok, fail) => {
+    const req = db.transaction(STORE,'readonly').objectStore(STORE).getAll();
+    req.onsuccess = () => ok(req.result);
+    req.onerror   = () => fail(req.error);
+  });
+}
+
+async function dbPut(record) {
+  const db = await openDB();
+  return new Promise((ok, fail) => {
+    const req = db.transaction(STORE,'readwrite').objectStore(STORE).put(record);
+    req.onsuccess = () => ok();
+    req.onerror   = () => fail(req.error);
+  });
+}
+
+async function dbDelete(id) {
+  const db = await openDB();
+  return new Promise((ok, fail) => {
+    const req = db.transaction(STORE,'readwrite').objectStore(STORE).delete(id);
+    req.onsuccess = () => ok();
+    req.onerror   = () => fail(req.error);
+  });
+}
+
+// ─── Auth ────────────────────────────────────────────────────────────────────
+function isLoggedIn() { return sessionStorage.getItem('teacher_ok') === '1'; }
+
+function checkLogin() {
+  const val = document.getElementById('l-pass').value;
+  if (val === TEACHER_PASSWORD) {
+    sessionStorage.setItem('teacher_ok','1');
+    showView('upload');
+  } else {
+    showAlert('login-alert','err','Incorrect password. Please try again.');
+    document.getElementById('l-pass').value = '';
+    document.getElementById('l-pass').focus();
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem('teacher_ok');
+  showView('gallery');
+}
+
+// ─── View switching ──────────────────────────────────────────────────────────
+function showView(name) {
+  // Guard upload page
+  if (name === 'upload' && !isLoggedIn()) { showView('login'); return; }
+
+  ['gallery','upload','login'].forEach(v => {
+    document.getElementById('view-'+v).classList.toggle('on', v===name);
+  });
+
+  // Nav button states
+  document.getElementById('nb-gallery').classList.toggle('act', name==='gallery');
+  document.getElementById('nb-upload').classList.toggle('act', name==='upload');
+
+  // Show/hide teacher nav items
+  const teacher = isLoggedIn();
+  document.getElementById('nb-upload').style.display  = teacher ? '' : 'none';
+  document.getElementById('nb-login').style.display   = teacher ? 'none' : '';
+  document.getElementById('nb-logout').style.display  = teacher ? '' : 'none';
+
+  if (name === 'gallery') loadGallery();
+  if (name === 'upload')  loadMgmtTable();
+}
+
+// ─── Gallery ─────────────────────────────────────────────────────────────────
+let allFiles = [];
+let activeTag = 'all';
+
+async function loadGallery() {
+  allFiles = (await dbGetAll()).sort((a,b) => new Date(b.uploadedAt)-new Date(a.uploadedAt));
+  buildTagRow();
+  updateStats();
+  renderGallery();
+}
+
+function buildTagRow() {
+  const tags = new Set();
+  allFiles.forEach(f => {
+    if (f.subject) tags.add(f.subject);
+    (f.tags||[]).forEach(t => tags.add(t));
+  });
+  const row = document.getElementById('tag-row');
+  row.innerHTML = `<button class="tp ${activeTag==='all'?'on':''}" onclick="setTag(this,'all')">All</button>`;
+  [...tags].sort().forEach(t => {
+    row.innerHTML += `<button class="tp ${activeTag===t?'on':''}" onclick="setTag(this,'${esc(t)}')">${esc(t)}</button>`;
+  });
+}
+
+function setTag(btn, tag) {
+  activeTag = tag;
+  document.querySelectorAll('.tp').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  renderGallery();
+}
+
+function updateStats() {
+  const pdfs = allFiles.filter(f=>f.fileType==='pdf').length;
+  const imgs = allFiles.length - pdfs;
+  document.getElementById('stats-bar').innerHTML =
+    `<span><strong>${allFiles.length}</strong> resources</span>
+     <span><strong>${pdfs}</strong> PDFs</span>
+     <span><strong>${imgs}</strong> images</span>`;
+}
+
+function renderGallery() {
+  const q = (document.getElementById('search-inp').value||'').toLowerCase();
+  const grid  = document.getElementById('gallery-grid');
+  const empty = document.getElementById('gallery-empty');
+  const msg   = document.getElementById('empty-msg');
+
+  const filtered = allFiles.filter(f => {
+    const inTag = activeTag==='all' || f.subject===activeTag || (f.tags||[]).includes(activeTag);
+    const inSearch = !q || f.title.toLowerCase().includes(q)
+      || (f.subject||'').toLowerCase().includes(q)
+      || (f.tags||[]).some(t=>t.toLowerCase().includes(q));
+    return inTag && inSearch;
+  });
+
+  if (!filtered.length) {
+    grid.innerHTML = '';
+    empty.style.display = '';
+    msg.textContent = allFiles.length
+      ? 'No notes match your search. Try different keywords.'
+      : 'No notes uploaded yet. Your teacher will add them soon.';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.innerHTML = filtered.map(buildCard).join('');
+}
+
+function buildCard(f) {
+  const isPdf = f.fileType === 'pdf';
+  const date  = new Date(f.uploadedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  const size  = fmtBytes(f.size);
+  const tagsHtml = [f.subject,...(f.tags||[])].filter(Boolean)
+    .map(t=>`<span class="ctag">${esc(t)}</span>`).join('');
+
+  // Build object URL from stored blob
+  const blobUrl = f._blobUrl || '';
+
+  let thumbHtml;
+  if (!isPdf && blobUrl) {
+    thumbHtml = `<img src="${blobUrl}" alt="${esc(f.title)} — preview" loading="lazy" />`;
+  } else {
+    thumbHtml = `<div class="fi ${isPdf?'pdf':'img'}" aria-hidden="true">${isPdf?'📄':'🖼️'}</div>`;
+  }
+
+  return `
+  <article class="card" role="listitem">
+    <div class="thumb ${isPdf?'pdft':''}">
+      ${thumbHtml}
+      <span class="tbadge ${isPdf?'pdf':'img'}" aria-label="File type: ${isPdf?'PDF':f.fileType.toUpperCase()}">${isPdf?'PDF':f.fileType.toUpperCase()}</span>
+    </div>
+    <div class="cbody">
+      <h2 class="ctitle">${esc(f.title)}</h2>
+      <div class="cmeta"><span>${date}</span><span>${size}</span></div>
+      ${tagsHtml?`<div class="ctags">${tagsHtml}</div>`:''}
+    </div>
+    <div class="cfoot">
+      ${blobUrl ? `<a href="${blobUrl}" target="_blank" rel="noopener" class="btn btn-o btn-sm" aria-label="View ${esc(f.title)}">View</a>
+      <a href="${blobUrl}" download="${esc(f.originalName||f.title)}" class="btn btn-p btn-sm" aria-label="Download ${esc(f.title)}">Download</a>` 
+      : `<span style="font-size:12px;color:var(--muted)">Reload page to view</span>`}
+    </div>
+  </article>`;
+}
+
+// ─── File upload (save to IndexedDB) ─────────────────────────────────────────
+let selectedFile = null;
+
+const dz       = document.getElementById('dz');
+const fileInp  = document.getElementById('file-inp');
+
+dz.addEventListener('click', () => fileInp.click());
+dz.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') fileInp.click(); });
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('over');
+  if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+fileInp.addEventListener('change', () => { if(fileInp.files.length) handleFile(fileInp.files[0]); });
+
+const ALLOWED_TYPES = ['application/pdf','image/jpeg','image/png','image/gif','image/webp'];
+const ALLOWED_EXTS  = ['.pdf','.jpg','.jpeg','.png','.gif','.webp'];
+const MAX_BYTES     = 50 * 1024 * 1024; // 50 MB
+
+function handleFile(file) {
+  const ext = file.name.toLowerCase().match(/\.[^.]+$/)?.[0] || '';
+  if (!ALLOWED_TYPES.includes(file.type) || !ALLOWED_EXTS.includes(ext)) {
+    showAlert('up-alert','err','Invalid file type. Please upload a PDF or image (JPG, PNG, GIF, WEBP).');
+    return;
+  }
+  if (file.size > MAX_BYTES) {
+    showAlert('up-alert','err','File is too large. Maximum size is 50 MB.');
+    return;
+  }
+  selectedFile = file;
+  const icon = file.type==='application/pdf' ? '📄' : '🖼️';
+  const mb   = (file.size/(1024*1024)).toFixed(2);
+  document.getElementById('preview-list').innerHTML = `
+    <div class="pi">
+      <span aria-hidden="true">${icon}</span>
+      <span>${esc(file.name)}</span>
+      <span style="color:var(--muted)">${mb} MB</span>
+      <button class="rm" onclick="clearFile()" aria-label="Remove selected file">×</button>
+    </div>`;
+}
+
+function clearFile() {
+  selectedFile = null;
+  fileInp.value = '';
+  document.getElementById('preview-list').innerHTML = '';
+}
+
+function resetForm() {
+  document.getElementById('u-title').value   = '';
+  document.getElementById('u-subject').value = '';
+  document.getElementById('u-tags').value    = '';
+  document.getElementById('up-alert').innerHTML = '';
+  clearFile();
+}
+
+async function doUpload() {
+  const title = document.getElementById('u-title').value.trim();
+  if (!title)         { showAlert('up-alert','err','Please enter a title.'); return; }
+  if (!selectedFile)  { showAlert('up-alert','err','Please select a file.'); return; }
+
+  const progWrap = document.getElementById('prog-wrap');
+  const pf       = document.getElementById('pf');
+  const pl       = document.getElementById('pl');
+  progWrap.style.display = 'block';
+  pf.style.width = '10%'; pl.textContent = 'Reading file…';
+
+  try {
+    // Read file as ArrayBuffer for IndexedDB storage
+    const buffer = await new Promise((ok, fail) => {
+      const fr = new FileReader();
+      fr.onload  = e => ok(e.target.result);
+      fr.onerror = () => fail(new Error('Could not read file'));
+      fr.readAsArrayBuffer(selectedFile);
+    });
+
+    pf.style.width = '60%'; pl.textContent = 'Saving…';
+
+    const ext      = selectedFile.name.toLowerCase().match(/\.[^.]+$/)?.[0] || '';
+    const fileType = ext === '.pdf' ? 'pdf' : ext.replace('.','');
+
+    const record = {
+      id:           crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36)+Math.random().toString(36).slice(2),
+      title:        title.slice(0,120),
+      subject:      document.getElementById('u-subject').value.trim(),
+      tags:         document.getElementById('u-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+      fileType,
+      originalName: selectedFile.name,
+      size:         selectedFile.size,
+      mimeType:     selectedFile.type,
+      data:         buffer,
+      uploadedAt:   new Date().toISOString(),
+    };
+
+    await dbPut(record);
+
+    pf.style.width = '100%'; pl.textContent = 'Done!';
+    showAlert('up-alert','ok','✓ File saved successfully!');
+    resetForm();
+    setTimeout(() => { progWrap.style.display='none'; pf.style.width='0%'; }, 1500);
+    loadMgmtTable();
+
+  } catch(err) {
+    showAlert('up-alert','err','Could not save file: ' + err.message);
+    progWrap.style.display = 'none';
+  }
+}
+
+// ─── Manage table ────────────────────────────────────────────────────────────
+async function loadMgmtTable() {
+  const tbody = document.getElementById('mgmt-body');
+  const files = (await dbGetAll()).sort((a,b)=>new Date(b.uploadedAt)-new Date(a.uploadedAt));
+
+  if (!files.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:2rem">No files uploaded yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = files.map(f => `
+    <tr>
+      <td><strong>${esc(f.title)}</strong></td>
+      <td><span class="ctag" style="text-transform:uppercase;font-size:10px">${esc(f.fileType)}</span></td>
+      <td>${esc(f.subject||'—')}</td>
+      <td>${new Date(f.uploadedAt).toLocaleDateString('en-GB')}</td>
+      <td><button class="btn btn-d btn-sm" onclick="doDelete('${f.id}','${esc(f.title)}')">Delete</button></td>
+    </tr>`).join('');
+}
+
+async function doDelete(id, title) {
+  if (!confirm(`Delete "${title}"?\n\nThis cannot be undone.`)) return;
+  try {
+    await dbDelete(id);
+    showAlert('mgmt-alert','ok',`"${title}" deleted.`);
+    loadMgmtTable();
+  } catch(e) {
+    showAlert('mgmt-alert','err','Could not delete: ' + e.message);
+  }
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+function showAlert(id, type, msg) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = `<div class="alert alert-${type}" role="alert">${msg}</div>`;
+  setTimeout(() => { el.innerHTML=''; }, 5000);
+}
+
+function esc(s) {
+  return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+
+function fmtBytes(b) {
+  if (!b) return '';
+  if (b<1024) return b+' B';
+  if (b<1048576) return (b/1024).toFixed(1)+' KB';
+  return (b/1048576).toFixed(2)+' MB';
+}
+
+// ─── Bootstrap blob URLs for gallery ─────────────────────────────────────────
+// Files are stored as ArrayBuffers; convert to Blob URLs for display/download
+async function hydrateBlobs() {
+  const records = await dbGetAll();
+  for (const r of records) {
+    if (r.data) {
+      const blob = new Blob([r.data], { type: r.mimeType || 'application/octet-stream' });
+      r._blobUrl = URL.createObjectURL(blob);
+    }
+  }
+  allFiles = records.sort((a,b)=>new Date(b.uploadedAt)-new Date(a.uploadedAt));
+  buildTagRow();
+  updateStats();
+  renderGallery();
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+hydrateBlobs();
+
+</script>
+</body>
+</html>
